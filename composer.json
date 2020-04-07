@@ -1,0 +1,12 @@
+{
+    "name": "acaeris/book-api",
+    "description": "API Technical Test",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Caitlyn Osborne",
+            "email": "acaeris@gmail.com"
+        }
+    ],
+    "require": {}
+}
