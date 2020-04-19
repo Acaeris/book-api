@@ -1,0 +1,15 @@
+{
+  "books": [
+    {% for book in books %}{
+      "isbn": "{{ book->ISBN() }}",
+      "title": "{{ book->Title() }}",
+      "author": "{{ book->Author() }}",
+      "categories": [
+        {% for category in book->Categories() %}
+          {{ category }}{% if not loop.last %},{% endif %}
+        {% endfor %}
+      ],
+      "price": "{{ book->Price() }}"
+    }{% if not loop.last %},{% endif %}{% endfor %}
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "categories": [
+    {% for category in categories %}
+      "{{ category }}"{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ]
+}

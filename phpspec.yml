@@ -1,0 +1,4 @@
+suites:
+  book_api:
+    namespace: App
+    psr4_prefix: App
