@@ -7,7 +7,7 @@ use App\Entity\Immutable\ImmutableTrait;
 use App\Validator\Constraint as AppAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
-final class Book implements ImmutableInterface
+class Book implements ImmutableInterface
 {
     use ImmutableTrait {
         __construct as constructImmutable;
@@ -78,5 +78,16 @@ final class Book implements ImmutableInterface
     public function getPrice(): string
     {
         return $this->price;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            "isbn" => $this->isbn,
+            "title" => $this->title,
+            "author" => $this->author,
+            "category" => implode(", ", $this->categories),
+            "price" => $this->price
+        ];
     }
 }

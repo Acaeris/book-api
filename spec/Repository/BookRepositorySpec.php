@@ -61,19 +61,25 @@ class BookRepositorySpec extends ObjectBehavior
     }
 
     public function it_should_be_able_to_store_a_new_book_entry(
-        Connection $connection
+        Connection $connection,
+        Book $book
     ) {
+        $book->getISBN()->willReturn("978-1491918661");
+        $book->toArray()->willReturn($this->mockBooks[0]);
         $connection->fetchAll("SELECT isbn FROM books WHERE isbn = :isbn", ["isbn" => "978-1491918661"])->willReturn([]);
         $connection->insert("books", $this->mockBooks[0])->shouldBeCalled();
-        $this->store($this->mockBooks[0])->shouldReturn(true);
+        $this->store($book)->shouldReturn(true);
     }
 
     public function it_should_be_able_to_update_an_existing_book_entry(
-        Connection $connection
+        Connection $connection,
+        Book $book
     ) {
+        $book->getISBN()->willReturn("978-1491918661");
+        $book->toArray()->willReturn($this->mockBooks[0]);
         $connection->fetchAll("SELECT isbn FROM books WHERE isbn = :isbn", ["isbn" => "978-1491918661"])->willReturn($this->mockBooks);
         $connection->update("books", $this->mockBooks[0], ['isbn' => $this->mockBooks[0]["isbn"]])->shouldBeCalled();
-        $this->store($this->mockBooks[0])->shouldReturn(true);
+        $this->store($book)->shouldReturn(true);
     }
 
     public function getMatchers(): array

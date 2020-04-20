@@ -53,4 +53,15 @@ class BookSpec extends ObjectBehavior
     {
         $this->getPrice()->shouldReturn($this->price);
     }
+
+    public function it_can_be_converted_to_array()
+    {
+        $this->toArray()->shouldReturn([
+            'isbn' => $this->isbn,
+            'title' => $this->title,
+            'author' => $this->author,
+            'category' => $this->category,
+            'price' => $this->price
+        ]);
+    }
 }

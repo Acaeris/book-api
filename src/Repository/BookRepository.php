@@ -89,21 +89,21 @@ class BookRepository
     }
 
     /**
-     * @param string[] $data
+     * @param Book $book
      * @return bool
      */
-    public function store(array $data): bool
+    public function store(Book $book): bool
     {
-        $check = $this->connection->fetchAll("SELECT isbn FROM books WHERE isbn = :isbn", ["isbn" => $data['isbn']]);
+        $check = $this->connection->fetchAll("SELECT isbn FROM books WHERE isbn = :isbn", ["isbn" => $book->getISBN()]);
 
         try {
             if (empty($check)) {
-                $this->connection->insert("books", $data);
+                $this->connection->insert("books", $book->toArray());
             } else {
-                $this->connection->update("books", $data, ['isbn' => $data['isbn']]);
+                $this->connection->update("books", $book->toArray(), ['isbn' => $book->getISBN()]);
             }
         } catch (DBALException $e) {
-            $this->log->error("Unable to store data for the book " . $data['isbn'], $e);
+            $this->log->error("Unable to store data for the book " . $book->getISBN(), $e);
             return false;
         }
 
